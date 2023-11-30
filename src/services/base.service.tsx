@@ -2,9 +2,14 @@ import Response from "../models/response";
 import axios from "axios";
 
 export default class BaseService {
-    private static baseURL: string = "https://geolocator-app.onrender.com";
+    private  baseURL: string = "https://geolocator-app.onrender.com";
+    baseUrl: string;
 
-    public static get<T>(url: string, param: any): Promise<Response> {
+    constructor(baseUrl: string) {
+        this.baseUrl = baseUrl;
+    }
+
+    public get<T>(url: string, param: any): Promise<Response> {
         let res = axios.get<T>(this.baseURL + url + param)
             .then((response: any) => {
                 const result = response.data;
@@ -21,7 +26,7 @@ export default class BaseService {
         return res;
     }
 
-    public static create<T>(url: string, obj: T): Promise<Response> {
+    public create<T>(url: string, obj: T): Promise<Response> {
 
         let res = axios.post(this.baseURL + url, obj)
             .then(response => {
