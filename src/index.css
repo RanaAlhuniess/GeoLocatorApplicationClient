@@ -134,6 +134,13 @@ input:focus {
   -webkit-animation-name: fadeInDown;
   animation-name: fadeInDown;
 }
+.error {
+  color: #b72424;
+}
+
+input[type="checkbox"] {
+  width: 20px;
+}
 
 @keyframes fadeInDown {
   0% {

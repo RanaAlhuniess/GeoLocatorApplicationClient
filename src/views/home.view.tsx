@@ -2,27 +2,34 @@ import React, { useState } from 'react';
 import AddressFormComponent from "../components/addressForm.component";
 import MapComponent from "../components/map.component";
 import AddressService from "../services/address.service";
+import {AddressModel} from "../models/address.model";
+import {AddressSearchModel} from "../models/addressSearch.model";
 
 const HomeView: React.FC = () => {
-    const [apiData, setApiData] = useState<any>(null);
+    const [addressData, setAddressData] = useState<AddressModel | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     const addressService = new AddressService();
-    const handleApiCall = async (data: any) => {
+    const handleApiCall = async (data: AddressSearchModel) => {
         try {
             const response = await addressService.getGeoLocation(data);
-            setApiData(response); // Set the API response in state
+            setAddressData(response);
         } catch (error) {
-            // Handle errors from the API call
+            setError('Error fetching data');
         }
     };
 
     return (
         <div style={{display: 'flex'}}>
             <div style={{flex: 1}}>
-                <AddressFormComponent/>
+                <AddressFormComponent handleFetchApiCall={handleApiCall}/>
             </div>
             <div style={{flex: 1}}>
-                <MapComponent />
+                {addressData !== null || error !== null ? (
+                    <MapComponent data={addressData} error={error} />
+                ) : (
+                    <p>Loading...</p>
+                )}
             </div>
         </div>
     );
