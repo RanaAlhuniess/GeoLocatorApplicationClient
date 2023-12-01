@@ -4,7 +4,7 @@ import {AddressModel} from "../models/address.model";
 export default class AddressService extends BaseService {
     constructor() {
         //TODO: refactoring
-        const baseURL: string = "https://geolocator-app.onrender.com";
+        const baseURL: string = process.env.REACT_APP_BASE_URL || "https://geolocator-app.onrender.com";
         super(baseURL);
     }
     async getGeoLocation(data: any) : Promise<AddressModel> {

@@ -16,8 +16,6 @@ const MapComponent: React.FC <MapProps> = ({ data, error }) => {
                 </div>
             ) : (
                 <div>
-                    {/* Render map using 'data' prop */}
-                    <p>Map Display Here</p>
                     {/* Display map data */}
                     {data && (
                         <div>
